@@ -2,17 +2,24 @@ const mongoose = require('mongoose');
 
 const ratingAndReviewsSchema = new mongoose.Schema({
     user:{
-        type: String,
+        type: mongoose.Schema.ObjectId,
         required: true,
-        trim: true
+        ref: 'user'
     },
     raing:{
-        type: String,
+        type: Number,
         required: true,
         enum: [1,2,3,4,5]
     },
-    reviews:{
+    review:{
         type: String,
+        required: true
+    },
+    course: {
+        type: mongoose.Schema.ObjectId,
+        required: true,
+        ref: 'course',
+        index: true
     }
 });
 

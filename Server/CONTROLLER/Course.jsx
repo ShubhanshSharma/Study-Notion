@@ -108,3 +108,53 @@ exports.showAllCourses = async (req, res) => {
         })
     }
 }
+
+exports.showAllCourses = async (req, res) => {
+    try{
+        //get id
+        const {courseID} = req.body;
+        //find course details
+        const courseDetails = await Course.find(
+            {_id: courseID}
+        ).populate(
+        {
+            path: "instructor",
+            populate:{
+                path:"additionalDetails"
+            },
+        }
+        )
+        .populate("category")
+        .populate('ratingsAndReviews')
+        .populate({
+            path:'courseContent',
+            populate:{
+                path: 'subSectoin',
+
+            },
+        })
+        .exec();
+
+        if(!courseDetails){
+            return res.status(400).json({
+                success: false,
+                message: `Cannot fetch Course Data of ${courseID}`,
+                error: err.message,
+            })
+        }
+
+        // return response
+        return res.status(200).json({
+            success: true,
+            message: 'Data of all coursed fetched Succesfully'
+        })
+        
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: 'Cannot fetch Course Data',
+            error: err.message,
+        })
+    }
+}
