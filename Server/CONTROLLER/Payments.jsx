@@ -1,4 +1,4 @@
-const { default: mongoose } = require('mongoose');
+const { default: mongoose } = require("mongoose");
 const {instance} = require('../CONFIG/razorpay');
 const Course = require('../MODEL/Course');
 const User = require('../MODEL/User');
@@ -36,7 +36,7 @@ exports.capturePayment = async (req, res) => {
         // convert it into object of that id 
         // because it is stored in course in object format 
         // to check the users in that Course
-        const uid = new mongoose.Types.ObjectId(userID.toString());
+        const uid = new mongoose.Types.ObjectId(userID);
         if(course.studentEnrolled.includes(uid)){
             return res.status(200).json({
                 success: false,
@@ -149,7 +149,7 @@ exports.verifySignature = async (req, res) => {
             console.log(enrolledStudent);
 
             const mailResponse = await mailSender(
-                enrolled.email,
+                enrolledStudent.email,
                 "Congratulations from StudyGraha",
                 "Congratulations for joining your new Course"
             )

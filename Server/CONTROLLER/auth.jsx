@@ -36,20 +36,24 @@ exports.sendOTP = async (req, res) => {
         //  check if otp is unique or not
         let result = await OTP.findOne({otp: otp});
 
+        console.log("Result is Generate OTP Func");
+		console.log("OTP", otp);
+		console.log("Result", result);
+
         while(result){
             otp = otpGenerator.generate(6, {
                 upperCaseAlphabets: false,
                 lowerCaseAlphabets: false,
                 specialChars: false,
             });
-        let result = await OTP.findOne({otp: otp});
+            let result = await OTP.findOne({otp: otp});
         }
         
         const otpPayload = {email, otp};
 
         // create otp entry in db
         const otpBody = await OTP.create(otpPayload);
-        console.log(otpBody);
+        console.log('OTP body', otpBody);
 
         // Return successful response
         return res.status(200).json({
@@ -121,7 +125,7 @@ exports.signUp = async (req, res) => {
                 success: false,
                 message: 'OTP not found'
             })
-        } else if(otp != recentOtp.otp){
+        } else if(otp != recentOtp[0].otp){
             // Invalid OTP
             return res.status(400).json({
                 success: false,
@@ -132,8 +136,12 @@ exports.signUp = async (req, res) => {
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // create entry in DB
+        
+		// Create the user
+		let approved = "";
+		approved === "Instructor" ? (approved = false) : (approved = true);
 
+        // create entry in DB
         const profileDetails = await Profile.create({
             gender: null,
             dateOfBirth: null,
@@ -147,7 +155,8 @@ exports.signUp = async (req, res) => {
             email,
             contactNo,
             password: hashedPassword,
-            accountType,
+            accountType: accountType,
+            approved: approved,
             additionalDetail: profileDetails._id,
             image:`https://api.dicebear.com/9.x/initials/svg?seed=${firstName} ${lastName}`
         });

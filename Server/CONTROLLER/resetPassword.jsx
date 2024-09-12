@@ -19,7 +19,8 @@ exports. resetPasswordToken = async (req, res) => {
         }
 
         // generate token
-        const token = crypto.randomUUID();
+		const token = crypto.randomBytes(20).toString("hex");
+        
 
         // update User
         const updateDetails = User.findOneAndUpdate({email: email},
@@ -28,13 +29,16 @@ exports. resetPasswordToken = async (req, res) => {
                                                         resetPasswordExpires: Date.now() + 5*60*1000,
 
                                                     },
-                                                    {new: true});// Returns updated document. If not used returns old document
+                                                    {new: true}
+        );// Returns updated document. If not used returns old document
+
+		console.log("DETAILS", updatedDetails);
 
         const url= `http://localhost:3000/udate-password/${token}`;
 
         await sendMail(email, 'Password Reset Link', `Password reset link => ${url}`);
 
-        return res.josn({
+        res.josn({
             success: true,
             message: 'Password reset link sent successfully, please check your email'
         })
@@ -77,7 +81,7 @@ exports. resetPassword = async (req,res) => {
         }
 
         // token time check
-        if(userDetails.resetPasswordExpires < Date.now()){
+        if(userDetails.resetPasswordExpires > Date.now()){
             return res.status(400).json({
                 success: false,
                 message: 'the token is expired, please regerate the token'
@@ -87,10 +91,14 @@ exports. resetPassword = async (req,res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // update in db
-        await User.findOneAndUpdate({ token: token}, { password: hashedPassword}, {new: true});
+        await User.findOneAndUpdate(
+            { token: token}, 
+            { password: hashedPassword}, 
+            {new: true}
+        );
 
         // return response
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             message: 'Password Reset succesfull'
         })
