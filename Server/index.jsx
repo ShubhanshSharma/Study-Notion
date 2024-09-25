@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 
-const userRoutes = require('./ROUTES real/User');
-const profileRoutes = require('./ROUTES real/Profile');
-const paymentRoutes = require('./ROUTES real/Payments');
-const courseRoutes = require('./ROUTES real/Course');
+const userRoutes = require('./ROUTES/User');
+const profileRoutes = require('./ROUTES/Profile');
+const paymentRoutes = require('./ROUTES/Payments');
+const courseRoutes = require('./ROUTES/Course');
 
 const database  = require('./CONFIG/database');
 const cookieParser = require('cookie-parser');
@@ -52,4 +52,9 @@ app.get('/', (req,res) => {
         success: true,
         message: 'Your server is up and running',
     })
+})
+
+
+app.listen(PORT, () => {
+    console.log(`all is listening at ${PORT}`)
 })
