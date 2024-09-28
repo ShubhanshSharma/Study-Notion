@@ -60,10 +60,10 @@ const courseSchema = new mongoose.Schema({
         },
     ]
     ,instructions: {
-        type: [string],
+        type: [String],
     },
     status: {
-        type: string,
+        type: String,
         enum: ["Draft", "Published"]
     }
 });

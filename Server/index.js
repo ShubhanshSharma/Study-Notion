@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 
-const userRoutes = require('./ROUTES/User');
 const profileRoutes = require('./ROUTES/Profile');
+const userRoutes = require('./ROUTES/User');
 const paymentRoutes = require('./ROUTES/Payments');
 const courseRoutes = require('./ROUTES/Course');
 
@@ -18,6 +18,7 @@ dotenv.config();
 const PORT = process.env.PORT || 4000;
 
 //database connect
+database.connect();
 
 //middlewares
 app.use(express.json());
@@ -56,5 +57,5 @@ app.get('/', (req,res) => {
 
 
 app.listen(PORT, () => {
-    console.log(`all is listening at ${PORT}`)
+    console.log(`app is listening at PORT:- ${PORT}`)
 })

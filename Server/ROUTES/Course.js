@@ -41,7 +41,7 @@ const {
 } = require("../CONTROLLER/ratingAndReview");
 
 // Importing Middlewares
-const { auth, isInstructor, isStudent, isAdmin } = require("../middleware/auth")
+const { auth, isInstructor, isStudent, isAdmin } = require("../MIDDLEWARES/auth")
 
 // ********************************************************************************************************
 //                                      Course routes
