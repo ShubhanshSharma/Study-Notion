@@ -4,7 +4,7 @@
 
 const jwt = require("jsonwebtoken");
 
-require("dotenv").config();     //this gets the env file variables
+require("dotenv").config();     // gets the env file variables
 
 const User = require('../MODEL/User');
 
@@ -27,7 +27,7 @@ exports.auth = async (req, res, next) => {
 
         //verify the token
         try{
-            const decode = jwt.verify(token, process.env.JWT_KEY);
+            const decode = jwt.verify(token, process.env.JWT_SECRET);
             console.log(decode);
 
             req.user = decode;

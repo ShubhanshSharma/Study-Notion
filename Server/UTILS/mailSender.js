@@ -12,16 +12,16 @@ const mailSender = async (email, title, body) => {
         })
 
         let info = await transporter.sendMail({
-            from: 'Shubhansh',
+            from: '"Shubhansh" <shubhanshsharmaking@gmail.com>',
             to: `${email}`,
             subject: `${title}`,
             html: `${body}`,
         })
-        console.log(info);
+        console.log('email sent' ,info);
         return info;
     }
     catch(err) {
-        console.log(err.message);
+        console.log('error occured in sending mail' ,err.message);
     }
 }
 

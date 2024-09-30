@@ -1,65 +1,66 @@
 
-const { validate } = require('../MODEL/OTP');
-const User = require('../MODEL/User');
 const sendMail = require('../UTILS/mailSender');
+const bcrypt = require("bcrypt");
+const crypto = require("crypto");
+const User = require('../MODEL/User');
 
 
-exports. resetPasswordToken = async (req, res) => {
+exports.resetPasswordToken = async (req, res) => {
+    try {
+        const  {email}  = req.body;
+        console.log(User);
 
-    try{
-        const {email} = req.body();
+        const isUserPresent = await User.findOne({ email: email });
 
-        const isUserPresent = User.findOne({email: email});
-
-        if(!isUserPresent){
+        if (!isUserPresent) {
             return res.status(401).json({
                 success: false,
                 message: 'This Email isn\'t registered with us'
-            })
+            });
         }
 
         // generate token
-		const token = crypto.randomBytes(20).toString("hex");
-        
+        const token = crypto.randomBytes(20).toString("hex");
 
         // update User
-        const updateDetails = User.findOneAndUpdate({email: email},
-                                                    {
-                                                        token: token,
-                                                        resetPasswordExpires: Date.now() + 5*60*1000,
+        const updateDetails = await User.findOneAndUpdate(
+            { email: email },
+            {
+                token: token,
+                resetPasswordExpires: Date.now() + 60 * 60 * 1000,
+            },
+            { new: true }
+        ); // Returns updated document. If not used returns old document
 
-                                                    },
-                                                    {new: true}
-        );// Returns updated document. If not used returns old document
+        console.log("DETAILS-", updateDetails);
 
-		console.log("DETAILS", updatedDetails);
-
-        const url= `http://localhost:3000/udate-password/${token}`;
+        const url = `http://localhost:3000/update-password/${token}`;
 
         await sendMail(email, 'Password Reset Link', `Password reset link => ${url}`);
 
-        res.josn({
+        res.json({
             success: true,
-            message: 'Password reset link sent successfully, please check your email'
-        })
-    }catch(err){
+            message: 'Password reset link sent successfully, please check your email',
+            url
+        });
+    } catch (err) {
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: ' something went wrong in sending reset password link'
-        })
+            message: 'Something went wrong in sending reset password link'
+        });
     }
-}
+};
 
 
 
-exports. resetPassword = async (req,res) => {
+exports.resetPassword = async (req,res) => {
 
     try{
     
         // fetch data
 
-        const {password, token , confirmPassword} = req.body();
+        const {password, token , confirmPassword} = req.body;
 
         // validate
         if(password != confirmPassword){
@@ -81,7 +82,7 @@ exports. resetPassword = async (req,res) => {
         }
 
         // token time check
-        if(userDetails.resetPasswordExpires > Date.now()){
+        if(userDetails.resetPasswordExpires < Date.now()){
             return res.status(400).json({
                 success: false,
                 message: 'the token is expired, please regerate the token'

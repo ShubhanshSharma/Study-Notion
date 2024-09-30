@@ -10,7 +10,7 @@ exports.createSection = async (req, res) => {
         const {
             sectionName,
             courseId    
-        } = req.body();
+        } = req.body;
 
         // data validation
         if(!sectionName || !courseId){
@@ -21,6 +21,7 @@ exports.createSection = async (req, res) => {
         }
         // create section 
         const createSection = await Section.create({sectionName});
+        console.log('created section-', createSection);
 
         // update course with section Object ID 
         const updatedCourseDetails = await Course.findByIdAndUpdate(
@@ -60,7 +61,7 @@ exports.updateSection = async (req,res) => {
 
     try{
         // data input
-        const { sectionName, sectionId} = req.body(); 
+        const { sectionName, sectionId} = req.body; 
 
         // data validation 
         if(!sectionName || !sectionId){
@@ -94,7 +95,7 @@ exports.deleteSection = async (req,res) => {
 
     try{
         // data input
-        const { sectionId} = req.body(); 
+        const { sectionId} = req.body; 
 
         // data validation 
         if(!sectionId){
