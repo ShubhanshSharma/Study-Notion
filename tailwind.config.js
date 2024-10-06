@@ -128,7 +128,11 @@ module.exports = {
       maxWidth: {
         maxContent: "1260px",
         maxContentTab: "650px"
-      },
+      },boxShadow: {
+        'btn': '2px 2px 1px 0px rgba(0, 0, 0, 1)',
+        'solid':'18px 16px 0px 2px rgba(255,255,255,1)',
+        'blur': '0px 0px 194px 120px rgba(255,255,255,0.3)'
+      }
     },
   },
   plugins: [],

@@ -2,3 +2,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.homepage_bg{
+    background: url('../src/assets/Images/bghome.svg');
+}
+
+.home_section_2{
+    background: url('../src//assets/Images/TimelineImage.png');
+}

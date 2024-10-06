@@ -1,0 +1,9 @@
+.custom-border-gradient {
+    border-width: 1px 0 0 1px; /* Top and left borders */
+    border-style: solid;
+    border-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.224), rgba(3, 4, 85, 0), rgba(3, 4, 85, 0),rgba(3, 4, 85, 0)) 1;
+    background: rgba(255, 255, 255, 0.01); /* Semi-transparent white background */
+    backdrop-filter: blur(100px); /* Applies blur to the background */
+    color: white;
+}
+ 

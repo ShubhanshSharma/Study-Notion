@@ -6,8 +6,8 @@ const Button = ({children, black, linkTo}) => {
     return(
         
         <Link to={linkTo}>
-            <div className={` w-fit px-5 py-2 rounded-lg hover:scale-105 transition-all duration-200 text-richblack-200 font-semibold 
-                ${black? "bg-richblack-800 text-white": "bg-yellow-50 text-black"}`}>
+            <div className={` w-fit text-[18px] px-7 py-3 rounded-lg hover:scale-105 transition-all duration-200 
+                ${black? "bg-richblack-800 text-white shadow-btn shadow-richblack-200/40": "bg-yellow-50 font-medium text-black shadow-btn shadow-yellow-5"}`}>
                 {children}
             </div>
         </Link>
