@@ -7,6 +7,7 @@ import banner from '../assets/Images/banner.mp4'
 import CodeBlock from "../components/CodeBlock";
 import { FaArrowRightLong } from "react-icons/fa6";
 import TimeLineSection from "../components/TimeLineSection";
+import ExploreMore from "../components/ExploreMore";
 
 const Home =  () => {
     return(
@@ -102,6 +103,8 @@ const Home =  () => {
                         bgGradient={'#12D8FA'}
                     />
                 </div>
+
+                <ExploreMore />
             </div>
 
             {/* Section 2 */}
@@ -122,9 +125,9 @@ const Home =  () => {
 
                 <div className=' relative w-10/12 mx-auto flex justify-between gap-16 my-[100px]'>
                     <div className=' relative text-4xl font-semibold text-richblack-900'>
-                        Get the skills you need for a <HighlightText text={'job that is in demand '}/>
+                        Get the skills you need for a <HighlightText light={true} text={'job that is in demand '}/>
                     </div>
-                    <div className=' relative flex flex-col justify-between font-semibold text-[16px] gap-12'>
+                    <div className=' relative flex flex-col justify-between font-semibold text-richblack-500 text-[16px] gap-12'>
                         <p>The modern StudyNotion is the dictates its own terms. Today, to be a competitive specialist requires more than professional skills.</p>
                         <CTAButton><p className='font-bold'>Learn More</p></CTAButton>
                     </div>

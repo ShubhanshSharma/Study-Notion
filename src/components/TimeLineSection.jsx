@@ -53,12 +53,14 @@ const TimeLineSection = () => {
             </div>
 
         <div className=' min-h-fit relative w-[714px]  shadow-solid'>
-            <img src={require('../assets/Images/TimelineImage.png')} />
+            <img src={require('../assets/Images/TimelineImage.png')} className='relative z-40 ' />
         </div>
 
-        <div className='absolute left-0'>
+        
+        <div className='absolute right-[30%] top-[56%] scale-x-[2.8]'>
             <BgCircle color={'#65C7F7'} />
         </div>
+        
     </div>
   )
 };
