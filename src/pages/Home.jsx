@@ -8,6 +8,8 @@ import CodeBlock from "../components/CodeBlock";
 import { FaArrowRightLong } from "react-icons/fa6";
 import TimeLineSection from "../components/TimeLineSection";
 import ExploreMore from "../components/ExploreMore";
+import LearningLanguage from "../components/LearningLanguage";
+import InstructorSection from "../components/InstructorSection";
 
 const Home =  () => {
     return(
@@ -98,7 +100,7 @@ const Home =  () => {
                             }
                         }
                         codeContent={
-                            '<!DOCTYPE html> \n <html> \n <head><title>Example</\n<title><linkrel="stylesheet"href="styles.css">\n</head>\n<body>\n<h1><ahref="/">Header</a>\n</h1>\n<nav><a href="one/">One</a><a href="two/">Two\n</a><a href="three/">Three</a>\n</nav>'}
+                            '<!DOCTYPE html> \n <html> \n <head><title>Example</\ntitle><linkrel="stylesheet"href="styles.css">\n</head>\n<body>\n<h1><ahref="/">Header</a>\n</h1>\n<nav><a href="one/">One</a><a href="two/">Two\n</a><a href="three/">Three</a>\n</nav>'}
                         codeColor={"text-yellow-25"}
                         bgGradient={'#12D8FA'}
                     />
@@ -136,6 +138,18 @@ const Home =  () => {
                 
 
                 <TimeLineSection />
+
+                <LearningLanguage />
+            </div>
+
+
+            {/*Section 3 */}
+            <div className='w-11/12 flex mx-auto max-w-maxContent pb-20 flex-col items-center justify-between gap-8 bg-richblack-900 text-white'>
+
+                <InstructorSection />
+
+                <h2 className='relative text-center text-4xl font-semibold mt-10'>review from Other Learners</h2>
+                {/* Review Slider here */}
             </div>
         </div>
     )
