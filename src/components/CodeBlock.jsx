@@ -13,7 +13,7 @@ const CodeBlock = ({
 
             {/* Info Block */}
             <div className=" w-1/2 flex flex-col">
-                <div className=" flex font-bold text-[40px] leading-[48px] mb-4">
+                <div className=" flex font-bold text-[40px] leading-[40px] mb-4">
                     {heading}
                 </div>
                 <div className=" max-w-3xl mx-auto text-[18px]">

@@ -3,6 +3,7 @@ import Instructor from "../assets/Images/Instructor.png"
 import HighlightText from './HighlightText'
 import CTAButton from "./Button"
 import { FaArrowRight } from 'react-icons/fa'
+import { FaArrowRightLong } from 'react-icons/fa6'
 
 const InstructorSection = () => {
   return (
@@ -31,7 +32,7 @@ const InstructorSection = () => {
                 <CTAButton active={true} linkto={"/signup"}>
                     <div className='flex flex-row gap-2 items-center'>
                         Start Learning Today
-                        <FaArrowRight />
+                        <FaArrowRightLong  size={'16px'}/>
                     </div>
                 </CTAButton>
             </div>

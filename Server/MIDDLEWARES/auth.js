@@ -11,7 +11,7 @@ const User = require('../MODEL/User');
 exports.auth = async (req, res, next) => {
 
     try{
-        console.log('body-', req.body.token);
+        console.log('req body for auth-', req);
         console.log('coockie-', req.cookies.token); 
         //extract token
         const token = req.body.token 
@@ -31,10 +31,12 @@ exports.auth = async (req, res, next) => {
             console.log(decode);
 
             req.user = decode;
+            console.log('auth is successfull');
         }catch(err){
             return res.status(401).json({
                 success: false,
-                message:'token is invalid'
+                message:'token is invalid',
+                error: err.message,
             })
         }
         next();   // this function forwards to next handler. ==> see user.js

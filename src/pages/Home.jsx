@@ -10,6 +10,7 @@ import TimeLineSection from "../components/TimeLineSection";
 import ExploreMore from "../components/ExploreMore";
 import LearningLanguage from "../components/LearningLanguage";
 import InstructorSection from "../components/InstructorSection";
+import Footer from "../components/Footer";
 
 const Home =  () => {
     return(
@@ -44,8 +45,8 @@ const Home =  () => {
                     </CTAButton>
                 </div>
 
-                <div className=" relative md:mx-20 shadow-solid my-12">
-                    <video loop autoPlay muted>
+                <div className=" relative md:mx-20 shadow-solids my-12">
+                    <video loop autoPlay muted className="max-w-[100%]">
                         <source type="video/mp4" src={banner} />
                     </video>
                 </div>
@@ -151,6 +152,11 @@ const Home =  () => {
                 <h2 className='relative text-center text-4xl font-semibold mt-10'>review from Other Learners</h2>
                 {/* Review Slider here */}
             </div>
+
+
+            {/* Footer */}
+
+            <Footer />
         </div>
     )
 }

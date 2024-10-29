@@ -91,21 +91,22 @@ exports.getAllUserDetails = async (req, res) => {
     try {
         // get profile ID
         const  id = req.user.id;
-
+        // console.log('id here- ', id);
         //validation
         const userDetails = await User.findById(id).populate('additionalDetails').exec();
         if(!userDetails){
+          // console.log(userDetails)
             return res.status(400).json({
                 success: false, 
-                message: 'User not Found'
+                message: 'User not Found',
             })
         }
-		console.log(userDetails);
+        console.log('profile details fetched:- ', userDetails);
         //return
         return res.status(200).json({
             success: true,
             message: 'Profile Fetched Successfully',
-            profileDetails
+            userDetails
         }) 
         
     } catch (error) {
