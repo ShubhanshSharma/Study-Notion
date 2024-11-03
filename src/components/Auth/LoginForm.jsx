@@ -28,25 +28,7 @@ function LoginForm() {
 
   const handleOnSubmit = (e) => {
     // console.log('called handleOnSubmit')
-    e.preventDefault();
-    // axios
-    //     .post('http://localhost:4000/api/v1/auth/login', 
-    //       { email, password })
-    //     .then((response) => {
-    //       if (response.data.success) {
-    //         console.log("LOGIN API RESPONSE............", response);
-    //         toast.success("got a response");
-    //       } else {
-    //         toast.error("response.data.valid isn't true");
-    //         throw new Error(response.data.message);
-    //         // navigate('/login');
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       console.log("LOGIN API ERROR............", error);
-    //       toast.error("Login Failed");
-    //       navigate('/login');
-    //     });
+      e.preventDefault();
       dispatch(login(email, password, navigate));
       console.log(process.env.REACT_APP_BASE_URL);
     // console.log('req sent with:-' , email , password)

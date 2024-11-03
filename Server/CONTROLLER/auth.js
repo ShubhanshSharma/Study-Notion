@@ -4,6 +4,7 @@ const otpGenerator = require("otp-generator");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const sendMail = require('../UTILS/mailSender');
+const Profile = require('../MODEL/Profile');
 require('dotenv').config();
 
 exports.sendOTP = async (req, res) => {
@@ -53,7 +54,7 @@ exports.sendOTP = async (req, res) => {
 
         // create otp entry in db
         const otpBody = await OTP.create(otpPayload);
-        console.log('OTP body', otpBody);
+        console.log('OTP body', OTP.find({email}).sort({createdAt: -1}).limit(1));
 
         // Return successful response
         return res.status(200).json({
@@ -157,7 +158,7 @@ exports.signUp = async (req, res) => {
             password: hashedPassword,
             accountType: accountType,
             approved: approved,
-            additionalDetail: profileDetails._id,
+            additionalDetails: profileDetails._id,
             image:`https://api.dicebear.com/9.x/initials/svg?seed=${firstName} ${lastName}`
         });
 

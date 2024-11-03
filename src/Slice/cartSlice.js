@@ -68,6 +68,6 @@ const initialState = {
     },
   })
 
-export const { setUser, resetCart } = cartSlice.actions;
+export const { resetCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

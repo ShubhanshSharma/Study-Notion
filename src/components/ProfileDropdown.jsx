@@ -8,33 +8,46 @@ import { logout } from '../services/operations/authAPI';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdOutlineSpaceDashboard } from 'react-icons/md';
 import axios from 'axios';
+import { setUser } from '../Slice/profileSlice';
 
 const ProfileDropdown = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const token = localStorage.getItem('token');
-  // const user = sessionStorage.getItem("user");
-  // console.log(token);
-
-  // const user = apiConnector("GET", profileEndpoints.GET_USER_DETAILS_API,{token})
-  // console.log(user);
   
-  const { user } = useSelector((state) => state.profile);
+
+  const [user , setToken] = useState({});
+  // let {user} = useSelector( (state) => state.profile );
+  // console.log('user in dropdown--', user);
+  let token = localStorage.getItem('token');
+  token = token.replace(/"/g, '');
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/v1/profile/getUserDetails', token)
-  .then(response => {
-    user = response
-    console.log('axios token fetch:-',response.data);
-  })
-  .catch(error => {
-    console.log('axios user details fetch failed', error);
-  });
+    // if (token && !user){
+      getAllUserDetails();
+    // }
   },[])
 
+  const getAllUserDetails = async () => {
+    const response = await apiConnector("POST", profileEndpoints.GET_USER_DETAILS_API, {token})
+    
+    if (!response.data.success) {
+      throw new Error(response.data.message)
+    }
+    // console.log('got the response', response.data.userDetails);
+    setToken(response.data.userDetails);
+    console.log('got the user', user);
+  }
 
-  // console.log('user-' ,useSelector((state) => state.profile));
+  // var token = localStorage.getItem('token');
+  // const user = localStorage.getItem("user");
+
+  // const user = apiConnector("GET", profileEndpoints.GET_USER_DETAILS_API,{token})
+  
+  // const { user } = useSelector((state) => state.profile);
+  // console.log('token in dropdown', token);
+
+
+  // console.log('user in profile dropdown-',user);
 
   const logoutHandler = (e) => {
     e.preventDefault();
