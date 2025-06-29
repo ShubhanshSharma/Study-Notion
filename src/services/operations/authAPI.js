@@ -91,7 +91,7 @@ export function login(email, password, navigate) {
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
     try {
-      console.log('in try block')
+      // console.log('in try block')
       const response = await apiConnector("POST", LOGIN_API, {
         email,
         password,
@@ -111,6 +111,7 @@ export function login(email, password, navigate) {
         : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`
       dispatch(setUser({ ...response.data.user, image: userImage }))
       console.log('user is stored using slice-', response.data.user);
+      localStorage.setItem("user", JSON.stringify(response.data.user))
       localStorage.setItem("token", JSON.stringify(response.data.token))
       navigate("/dashboard/my-profile")
     } catch (error) {

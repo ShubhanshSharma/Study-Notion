@@ -11,32 +11,37 @@ import axios from 'axios';
 import { setUser } from '../Slice/profileSlice';
 
 const ProfileDropdown = () => {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
 
-  const [user , setToken] = useState({});
-  // let {user} = useSelector( (state) => state.profile );
-  // console.log('user in dropdown--', user);
-  let token = localStorage.getItem('token');
-  token = token.replace(/"/g, '');
+
+  const [token, setToken] = useState(() => {
+    const storedToken = localStorage.getItem('token');
+    return storedToken ? storedToken.replace(/"/g, '') : '';
+  });
+  const { user } = useSelector((state) => state.profile);
+  console.log('user in dropdown--', user);
 
   useEffect(() => {
-    // if (token && !user){
+    if (token && !user) {
       getAllUserDetails();
-    // }
-  },[])
+    }
+  }, [token, user]);
 
   const getAllUserDetails = async () => {
-    const response = await apiConnector("POST", profileEndpoints.GET_USER_DETAILS_API, {token})
-    
+    const response = await apiConnector("GET", profileEndpoints.GET_USER_DETAILS_API, { token });
+
     if (!response.data.success) {
-      throw new Error(response.data.message)
+      throw new Error(response.data.message);
     }
-    // console.log('got the response', response.data.userDetails);
-    setToken(response.data.userDetails);
-    console.log('got the user', user);
-  }
+    else{
+      // If you want to update the user in redux, dispatch setUser here
+      dispatch(setUser(response.data.userDetails));
+      console.log('got the user', response.data.userDetails);
+
+    }
+  };
 
   // var token = localStorage.getItem('token');
   // const user = localStorage.getItem("user");
@@ -68,7 +73,7 @@ const ProfileDropdown = () => {
 
         <div className={`bg-richblack-700 z-20 p-1 relative top-[62px] right-[40%] flex flex-col max-w-maxContent rounded-lg ${isOpen ? 'scale-100' :'scale-0'} group-hover:scale-100`}>
 
-          <Link to='/dashboard'>
+          <Link to='/dashboard/my-profile'>
           <div className=' px-2 py-1 rounded-md flex gap-2 items-center hover:bg-richblack-600'>
             <MdOutlineSpaceDashboard />
             <p>Dashboard</p>

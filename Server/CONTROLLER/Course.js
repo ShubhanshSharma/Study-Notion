@@ -14,15 +14,21 @@ exports.createCourse = async (req, res) => {
 
         // fetch data
         let {
-			courseName,
-			courseDescription,
-			whatYouWillLearn,
-			price,
-			tag,
-			category,
-			status,
-			instructions,
-		} = req.body;
+            courseName,
+            courseDescription,
+            whatWillYouLearn,
+            whatYouWillLearn,
+            price,
+            tag,
+            category,
+            status,
+            instructions,
+        } = req.body;
+
+        // Map whatYouWillLearn to whatWillYouLearn if present
+        if (!whatWillYouLearn && whatYouWillLearn) {
+            whatWillYouLearn = whatYouWillLearn;
+        }
         // Get thumbnail image from request files
 		const thumbnail = req.files.thumbnailImage;
 
@@ -30,7 +36,7 @@ exports.createCourse = async (req, res) => {
         if(
 			!courseName ||
 			!courseDescription ||
-			!whatYouWillLearn ||
+			!whatWillYouLearn ||
 			!price ||
 			!tag ||
 			!thumbnail ||
@@ -80,7 +86,7 @@ exports.createCourse = async (req, res) => {
 			courseName,
 			courseDescription,
 			instructor: instructorDetails._id,
-			whatYouWillLearn: whatYouWillLearn,
+			whatWillYouLearn: whatWillYouLearn,
 			price,
 			tag: tag,
 			category: categoryDetails._id,

@@ -6,49 +6,47 @@ const { uploadImageToCloudinary } = require("../UTILS/imageUploader");
 
 exports.createSubSection = async (req, res) => {
 
-    try{
-
-        //fetch details
-        const {sectionId, title, timeDuration, description} = req.body;
-        //extract video/file
-        const video = req.files.videoFile;
-        //validate
-        if(!sectionId || !title || !timeDuration || !description){
+    try {
+        // fetch details
+        const { sectionId, title, description } = req.body;
+        // extract video/file
+        const video = req.files && req.files.video;
+        // validate
+        if (!sectionId || !title || !description || !video) {
             return res.status(400).json({
                 success: false,
-                message: 'ALl fields are necessary'
-            })
+                message: 'All fields are necessary'
+            });
         }
-        //upload video to cloudinary
+        // upload video to cloudinary
         const uploadDetails = await uploadImageToCloudinary(
-            video, 
+            video,
             process.env.FOLDER_NAME
         );
-      console.log(uploadDetails);
-      //create sub section
+        // create sub section
         const subSectionDetails = await SubSection.create({
-            title:title,
+            title: title,
             timeDuration: `${uploadDetails.duration}`,
             description: description,
             videoUrl: uploadDetails.secure_url,
-        })
-        //update section with the subSection
+        });
+        // update section with the subSection
         const updatedSection = await Section.findByIdAndUpdate(
-            {_id:sectionId},
+            { _id: sectionId },
             {
-                $push:{
-                    subSection:subSectionDetails._id
+                $push: {
+                    subSection: subSectionDetails._id
                 }
             },
-            {new: true}
+            { new: true }
         ).populate('subSection').exec();
-        //return res
+        // return res
         return res.status(200).json({
             success: true,
             message: 'Sub-Section Created Successfully',
             data: updatedSection
-        })
-    }catch(err){
+        });
+    } catch (err) {
         return res.status(500).json({
             success: false,
             message: 'Error in creating subsection',

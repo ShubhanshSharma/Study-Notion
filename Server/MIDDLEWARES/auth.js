@@ -62,6 +62,7 @@ exports.isStudent = async (req, res , next) =>{
                 message:'This is a protected route for a students only'
             })
         }
+        console.log("Student verified")
         next();
 
     }catch(err){
@@ -81,6 +82,7 @@ exports.isInstructor = async (req, res , next) =>{
                 message:'This is a protected route for a Instructors only'
             })
         }
+        console.log("Instructor verified")
         next();
         
     }catch(err){
@@ -100,6 +102,7 @@ exports.isAdmin = async (req, res , next) =>{
                 message:'This is a protected route for a Admins only'
             })
         }
+        console.log("Admin verified")
         next();
         
     }catch(err){

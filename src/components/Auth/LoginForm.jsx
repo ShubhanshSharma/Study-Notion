@@ -30,7 +30,7 @@ function LoginForm() {
     // console.log('called handleOnSubmit')
       e.preventDefault();
       dispatch(login(email, password, navigate));
-      console.log(process.env.REACT_APP_BASE_URL);
+      // console.log(process.env.REACT_APP_BASE_URL);
     // console.log('req sent with:-' , email , password)
 
   }

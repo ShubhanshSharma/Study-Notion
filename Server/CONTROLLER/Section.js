@@ -4,6 +4,8 @@ const Course = require('../MODEL/Course');
 
 exports.createSection = async (req, res) => {
 
+    console.log("before createSection try")
+
     try{
 
         // Data fetch
@@ -12,6 +14,7 @@ exports.createSection = async (req, res) => {
             courseId    
         } = req.body;
 
+        console.log("req in createSection-->", req.body)
         // data validation
         if(!sectionName || !courseId){
             return res.json({
